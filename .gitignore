@@ -1,0 +1,3 @@
+# Ignore any  build files.
+MemoryControl/MemoryControl/bin/
+MemoryControl/MemoryControl/obj/
