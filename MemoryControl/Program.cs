@@ -13,24 +13,18 @@ namespace MemoryControl
     {
         static void Main(string[] args)
         {
-            var timer = new Timer();
-
-            /* using (timer.StartTimer())
-             {
-                 // do things
-             }
-
-             Console.WriteLine(timer.ElapsedMilliseconds);*/
-
+            var timerBitmap = new Timer();
             var bitmap = (Bitmap)Bitmap.FromFile("C:\\image.bmp");
-            using (timer.StartTimer())
+            using (timerBitmap.StartTimer())
             {
                 for (var x = 0; x < bitmap.Width; x++)
                     for (var y = 0; y < bitmap.Height; y++)
                         bitmap.SetPixel(x, y, Color.Red);
             }
-            Console.WriteLine(timer.ElapsedMilliseconds);
-            using (timer.StartTimer())
+            Console.WriteLine(timerBitmap.ElapsedMilliseconds);
+
+            var timerBitmapEditor = new Timer();
+            using (timerBitmapEditor.StartTimer())
             {
                 using (var bitmapEditor = new BitmapEditor(bitmap))
                 {
@@ -39,7 +33,7 @@ namespace MemoryControl
                             bitmapEditor.SetPixel(x, y, 255, 255, 255);
                 }
             }
-            Console.WriteLine(timer.ElapsedMilliseconds);
+            Console.WriteLine(timerBitmapEditor.ElapsedMilliseconds);
             Console.ReadLine();
         }
     }

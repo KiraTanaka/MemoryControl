@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace MemoryControl
 {
-    public class BitmapEditor : IDisposable
+    internal class BitmapEditor : IDisposable
     {
-        public Bitmap bitmap { get; private set; } = null;
-        public BitmapData bitmapData { get; private set; } = null;
-        public byte[] Pixels { get; set; }
-        IntPtr Iptr = IntPtr.Zero;
-        public int Depth { get; private set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        internal Bitmap bitmap { get; private set; } = null;
+        internal BitmapData bitmapData { get; private set; } = null;
+        private byte[] Pixels;
+        private IntPtr Iptr = IntPtr.Zero;
+        private int Depth;
+        private int Width;
+        private int Height;
 
         public BitmapEditor(Bitmap bitmap)
         {
@@ -35,12 +35,12 @@ namespace MemoryControl
             // Copy data from pointer to array
             Marshal.Copy(Iptr, Pixels, 0, Pixels.Length);
         }
-        public void SetPixel(int x,int y, byte r, byte g, byte b)
+        public void SetPixel(int x,int y, byte red, byte green, byte blue)
         {
             int i = ((y * Width) + x) * Depth / 8;
-            Pixels[i] = b;
-            Pixels[i + 1] = g;
-            Pixels[i + 2] = r;           
+            Pixels[i] = blue;
+            Pixels[i + 1] = green;
+            Pixels[i + 2] = red;           
         }
         public void Dispose()
         {
