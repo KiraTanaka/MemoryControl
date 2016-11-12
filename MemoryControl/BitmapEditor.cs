@@ -22,13 +22,10 @@ namespace MemoryControl
         public BitmapEditor(Bitmap bitmap)
         {
             this.bitmap = bitmap;
-        }
-        public void SetPixel(int x,int y, byte r, byte g, byte b)
-        {
             Width = bitmap.Width;
             Height = bitmap.Height;
             int PixelCount = Width * Height;
-            int i = ((y * Width) + x) * Depth / 8;
+            
             Depth = Bitmap.GetPixelFormatSize(bitmap.PixelFormat);
             bitmapData = bitmap.LockBits(new Rectangle(0, 0, Width, Height), ImageLockMode.ReadWrite,
                                          bitmap.PixelFormat);
@@ -37,11 +34,13 @@ namespace MemoryControl
 
             // Copy data from pointer to array
             Marshal.Copy(Iptr, Pixels, 0, Pixels.Length);
-
+        }
+        public void SetPixel(int x,int y, byte r, byte g, byte b)
+        {
+            int i = ((y * Width) + x) * Depth / 8;
             Pixels[i] = b;
             Pixels[i + 1] = g;
-            Pixels[i + 2] = r;
-            
+            Pixels[i + 2] = r;           
         }
         public void Dispose()
         {

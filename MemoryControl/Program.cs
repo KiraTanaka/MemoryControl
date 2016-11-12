@@ -25,14 +25,18 @@ namespace MemoryControl
             var bitmap = (Bitmap)Bitmap.FromFile("C:\\image.bmp");
             using (timer.StartTimer())
             {
-                bitmap.SetPixel(0, 1, Color.Red);
+                for (var x = 0; x < bitmap.Width; x++)
+                    for (var y = 0; y < bitmap.Height; y++)
+                        bitmap.SetPixel(x, y, Color.Red);
             }
             Console.WriteLine(timer.ElapsedMilliseconds);
             using (timer.StartTimer())
             {
                 using (var bitmapEditor = new BitmapEditor(bitmap))
                 {
-                    bitmapEditor.SetPixel(0, 1, 255, 255, 255);
+                    for (var x = 0; x < bitmap.Width;x++)
+                        for (var y = 0; y < bitmap.Height; y++)
+                            bitmapEditor.SetPixel(x, y, 255, 255, 255);
                 }
             }
             Console.WriteLine(timer.ElapsedMilliseconds);
