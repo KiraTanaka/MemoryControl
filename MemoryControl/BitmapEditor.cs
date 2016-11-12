@@ -24,17 +24,15 @@ namespace MemoryControl
             this.bitmap = bitmap;
             Width = bitmap.Width;
             Height = bitmap.Height;
-            int PixelCount = Width * Height;
-            
-            Depth = Bitmap.GetPixelFormatSize(bitmap.PixelFormat);
+
             bitmapData = bitmap.LockBits(new Rectangle(0, 0, Width, Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
-            Pixels = new byte[PixelCount * Depth / 8];
+            Pixels = new byte[Width * Height * 3];
             Iptr = bitmapData.Scan0;
             Marshal.Copy(Iptr, Pixels, 0, Pixels.Length);
         }
         public void SetPixel(int x,int y, byte red, byte green, byte blue)
         {
-            int i = ((y * Width) + x) * Depth / 8;
+            int i = ((y * Width) + x) * 3;
             Pixels[i] = blue;
             Pixels[i + 1] = green;
             Pixels[i + 2] = red;           
